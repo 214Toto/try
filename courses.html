@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Navigation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      /* background-color: #f0f0f0; */
+      background-image: url(images/wall1.jpg);
+      background-position: center;
+      background-size: contain;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .center-con {
+      position: relative;
+      width: 500px;
+      height: 300px;
+      background-color: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .course-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      background-color: #f39c12;
+      transform: translateX(100%);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .course-container.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .course-container.to-left {
+      transform: translateX(-100%);
+    }
+
+    .course-container.to-right {
+      transform: translateX(100%);
+    }
+
+    .course {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .course h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    a {
+       color: black;
+       text-decoration: none; 
+    }
+
+    .start-course {
+        background: #fbca1f;
+  font-family: comic sans;
+  padding: 0.6em 1.3em;
+  font-weight: 900;
+  font-size: 18px;
+  border: 3px solid black;
+  border-radius: 0.4em;
+  box-shadow: 0.1em 0.1em;
+  cursor: pointer;
+    }
+
+    .start-course:hover {
+        transform: translate(-0.05em, -0.05em);
+        box-shadow: 0.15em 0.15em;
+    }
+    .start-course:active {
+        transform: translate(0.05em, 0.05em);
+  box-shadow: 0.05em 0.05em;
+    }
+    @media only screen and (max-width: 480px) {
+        img {
+        width: 20rem;
+        }
+        .center-con {
+            position: relative;
+            width: 500px;
+            height: 290px;
+            background-color: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .course-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            background-color: #f39c12;
+            transform: translateX(100%);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .course {
+            text-align: center;
+            padding: 10px;
+            /* height: 2px; */
+        }
+    }
+
+    /* Arrow Button Styling */
+    .round {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #1612f3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    .round.left {
+      left: 10px;
+    }
+
+    .round.right {
+      right: 10px;
+    }
+    
+
+    .arrowCta {
+      display: block;
+      height: 13px;
+      width: 13px;
+      border: 11px solid transparent;
+      transform: rotate(135deg);
+      position: relative;
+    }
+
+    .arrowCta:after,
+    .arrowCta:before {
+      content: "";
+      display: block;
+      height: inherit;
+      width: inherit;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    /* Left Button Animation (Pointing Left) */
+    .left .arrowCta:after {
+      border-bottom: 3px solid white;
+      border-right: 3px solid white;
+      opacity: 1;
+      animation: bottom-arrow 1.65s infinite;
+    }
+
+    .left .arrowCta:before {
+      border-bottom: 3px solid white;
+      border-right: 3px solid white;
+      animation: top-arrow 1.65s infinite;
+    }
+
+    /* Right Button Animation (Pointing Right) */
+    .right .arrowCta {
+      transform: rotate(-45deg); /* Adjust to point right */
+    }
+
+    .right .arrowCta:after {
+      border-bottom: 3px solid white;
+      border-right: 3px solid white;
+      opacity: 1;
+      animation: bottom-arrow 1.65s infinite;
+    }
+
+    .right .arrowCta:before {
+      border-bottom: 3px solid white;
+      border-right: 3px solid white;
+      animation: top-arrow 1.65s infinite;
+    }
+
+    /* Keyframes for Animation */
+    @keyframes bottom-arrow {
+      0% {
+        opacity: 1;
+        transform: translate(0, 0);
+      }
+      45% {
+        opacity: 0;
+        transform: translate(12px, 12px);
+      }
+      46% {
+        opacity: 0;
+        transform: translate(-16px, -16px);
+      }
+      90% {
+        opacity: 1;
+        transform: translate(-6px, -6px);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(-6px, -6px);
+      }
+    }
+
+    @keyframes top-arrow {
+      0% {
+        transform: translate(-6px, -6px);
+      }
+      35% {
+        transform: translate(0, 0);
+      }
+      90% {
+        opacity: 1;
+        transform: translate(0, 0);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(0, 0);
+      }
+    }
+
+
+  </style>
+</head>
+<body>
+  <div class="center-con">
+    <!-- Left Arrow -->
+    <div class="round left">
+      <div class="arrowCta"></div>
+    </div>
+
+    <!-- Course Containers -->
+    <div class="course-container active" id="course1">
+      <div class="course">
+        <h1 style="font-family: Verdana, Geneva, Tahoma, sans-serif;"> PH 110 </h1>
+        <button class="start-course"> <a href="index.html"> Home Page</a> </button>
+        <button class="start-course"> <a href="PH-topics.html"> Start Course</a></button>
+      <img style="margin-top: 7px;" width="400rem" height="150rem" src="PH.png">
+
+      </div>
+    </div>
+
+    <div class="course-container" id="course2">
+      <div class="course">
+        <h1 style="font-family: Verdana, Geneva, Tahoma, sans-serif;"> CH 110 </h1>
+        <button class="start-course"> <a href="index.html"> Home Page</a></button>
+        <button class="start-course"> <a href="#"> Start Course</a></button>
+        <img style="margin-top: 7px;" width="400rem" height="150rem" src="CH.png">
+
+      </div>
+    </div>
+
+    <div class="course-container" id="course2">
+        <div class="course">
+          <h1 style="font-family: Verdana, Geneva, Tahoma, sans-serif;"> MA 110 </h1>
+          <button class="start-course"> <a href="index.html"> Home Page</a></button>
+          <button class="start-course"> <a href="#"> Start Course</a></button>
+          <img style="margin-top: 7px;" width="400rem" height="150rem" src="MA.png">
+  
+        </div>
+      </div>
+
+    <div class="pic">
+    </div>
+
+    <!-- Right Arrow -->
+    <div class="round right">
+      <div class="arrowCta"></div>
+    </div>
+  </div>
+
+  <script>
+    const leftArrow = document.querySelector('.left');
+    const rightArrow = document.querySelector('.right');
+    const courses = document.querySelectorAll('.course-container');
+    let currentCourse = 0;
+
+    // Function to change the course
+    function changeCourse(direction) {
+      courses.forEach(course => {
+        course.classList.remove('active', 'to-left', 'to-right');
+      });
+
+      const outgoingCourse = courses[currentCourse];
+      if (direction === 1) {
+        outgoingCourse.classList.add('to-left'); // Slide out to the left
+      } else {
+        outgoingCourse.classList.add('to-right'); // Slide out to the right
+      }
+
+      currentCourse = (currentCourse + direction + courses.length) % courses.length;
+      const incomingCourse = courses[currentCourse];
+      incomingCourse.classList.add('active');
+    }
+
+    leftArrow.addEventListener('click', () => changeCourse(-1)); // Slide left
+    rightArrow.addEventListener('click', () => changeCourse(1)); // Slide right
+  </script>
+</body>
+</html>

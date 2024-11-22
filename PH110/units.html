@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Units and measurements </title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      /* font-family: 'MyFancyFont', sans-serif; */
+      /* font-family: 'Pacifico', 'Arial', sans-serif; */
+      /* font-family: 'Poppins', sans-serif; */
+    }
+
+    body {
+      /* background: linear-gradient(to bottom right, #f3f4f6, #e5e7eb); */
+      display: flex;
+      background-image: url(../images/units.jpg);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      color: #333;
+    }
+
+    #question-container {
+      /* background: #fff; */
+      background: rgb(70,195,191);
+      background: linear-gradient(90deg, rgba(70,195,191,1) 10%, rgba(29,83,253,0.819672131147541) 50%, rgba(252,176,69,1) 100%);
+      /* background: rgb(131,58,180); */
+      /* background: linear-gradient(90deg, rgba(131,58,180,1) 10%, rgba(29,83,253,0.819672131147541) 50%, rgba(252,176,69,1) 100%); */
+      /* background: rgb(238,174,202);
+      background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%); */
+      /* background: linear-gradient(to bottom, #2a2a2a, #111); */
+      /* background: linear-gradient(135deg, #2a2a2a, #111); */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: left;
+      width: 90%;
+      margin-top: 4rem;
+      max-width: 600px;
+    }
+
+    #main-question-image {
+      margin: 15px 0;
+      border-radius: 8px;
+      max-width: 100%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .hidden {
+      display: none;
+      align-items: center;
+    }
+
+    .subquestion {
+      margin-top: 20px;
+      border-top: 1px solid #ccc;
+      padding-top: 10px;
+    }
+
+    #buttons-container {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping */
+  justify-content: center; /* Center buttons */
+  gap: 10px;
+  width: 100%; /* Make sure container takes full width */
+}
+
+    .buttons {
+      display: flex;
+      /* width: 380px; */
+      gap: 10px;
+      --b: 5px; /* border thickness */
+      --h: 2.5em; /* button height */
+      margin-top: 20px;
+    }
+
+    .buttons button {
+      --_c: #88C100;
+      flex: calc(1.25 + var(--_s, 0));
+      min-width: 0;
+      font-size: 20px;
+      font-weight: bold;
+      height: var(--h);
+      cursor: pointer;
+      color: var(--_c);
+      border: var(--b) solid var(--_c);
+      background: 
+        conic-gradient(at calc(100% - 1.3*var(--b)) 0, var(--_c) 209deg, #0000 211deg)
+        border-box;
+      clip-path: polygon(0 0, 100% 0, calc(100% - 0.17*var(--h)) 100%, 0 100%);
+      padding: 0 calc(0.288*var(--h)) 0 0;
+      margin: 0 calc(-0.288*var(--h)) 0 0;
+      box-sizing: border-box;
+      transition: flex 0.4s;
+    }
+
+    .buttons button {
+  flex: 1; /* Allow buttons to resize proportionally */
+  max-width: 120px; /* Prevent buttons from being too wide */
+  min-width: 80px; /* Ensure buttons aren't too small */
+  font-size: 14px; /* Adjust font size for smaller screens */
+}
+
+    .buttons button + button {
+      --_c: #FF003C;
+      flex: calc(0.75 + var(--_s, 0));
+      background: 
+        conic-gradient(from -90deg at calc(1.3*var(--b)) 100%, var(--_c) 119deg, #0000 121deg)
+        border-box;
+      clip-path: polygon(calc(0.17*var(--h)) 0, 100% 0, 100% 100%, 0 100%);
+      margin: 0 0 0 calc(-0.288*var(--h));
+      padding: 0 0 0 calc(0.288*var(--h));
+    }
+
+    .buttons button:hover,
+    .buttons button:active:not(:focus-visible) {
+      --_s: 0.75;
+    }
+
+    .buttons button:active {
+      box-shadow: inset 0 0 0 100vmax var(--_c);
+      color: #fff;
+    }
+    .sup {
+      font-size: 0.8em;
+      vertical-align: super;
+    }
+
+    header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 20px;
+  background: #060625;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+}
+
+.nav {
+  color: #ffffff;
+  text-align: center;
+  padding-left: 1.7rem;
+  text-decoration: none;
+  border-left: 2px solid #ffffff;
+}
+
+
+.btn-1 {
+  position: relative;
+  background-color: black;
+  border-radius: 4em;
+  font-size: 16px;
+  color: white;
+  /* width: 100%; */
+  padding: 0.8em 1.8em;
+  cursor:pointer;
+  user-select:none;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  -webkit-transition-duration: 0.4s; /* Safari */
+}
+
+.btn-1:hover {
+  transition-duration: 0.1s;
+  background-color: #3A3A3A;
+}
+
+.btn-1:after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 4em;
+  left: 0;
+  top:0;
+  /* width: 100%; */
+  height: 100%;
+  opacity: 0;
+  transition: all 0.5s;
+  box-shadow: 0 0 10px 40px white;
+}
+
+.btn-1:active:after {
+  box-shadow: 0 0 0 0 white;
+  position: absolute;
+  border-radius: 4em;
+  left: 0;
+  top:0;
+  opacity: 1;
+  transition: 0s;
+}
+
+.btn-1:active {
+  top: 1px;
+}
+
+@media only screen and (max-width: 480px) {
+  #buttons-container {
+    flex-direction: row; /* Stack buttons vertically if needed */
+    gap: 5px; /* Reduce gap */
+  }
+
+  .buttons button {
+    flex: none; /* Disable flex for better control */
+    width: 100%; /* Make buttons take full container width */
+  }
+}
+
+  </style>
+</head>
+<body>
+
+
+  <header class="header">
+    <a href="index.html" class="logo"> CBU NS </a>
+
+
+    <h2> Totoz Collection ! </h2>
+
+    <a href="lab-T3.html" class="nav"> Back </a>
+
+
+  </header>
+
+  <div id="question-container">
+
+    <div class="question hidden" id="question-2">
+      <h2 style="text-align: center;"> 2024 Test 1 </h2>
+      <!-- <img id="main-question-image" src="main_question_image2.png" alt="Main Question Illustration"> -->
+      <div class="subquestion">
+        <h3>(a) How many significant figures are in the following numbers?  (i) 2.26 x 10<sup>-6</sup>  (ii) 0.0053 (iii) 4.244 x 10<sup>8</sup>           [3]</h3>
+        <div id="buttons-container">
+          <button class="btn-1" onclick="toggleContent('solution1_1')"><span>Solution</span> </button>
+          <button class="btn-1" onclick="toggleContent('audio1_1')">Explanation</button>
+          <button class="btn-1" onclick="toggleContent('video1_1')">Video</button>
+        </div>
+        <div id="solution1_1" class="hidden" style="text-align: center;">
+          <img width="100%" src="../images/PH110/units/ans3.png" alt="Solution for Subquestion 1">
+        </div>
+        <div id="audio1_1" class="hidden" style="text-align: center;">
+          <audio controls>
+            <source src="explanation1_1.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+        <div id="video1_1" class="hidden" style="text-align: center;">
+          <video controls>
+            <source src="explanation1_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+      <!-- Similar structure as above -->
+    </div>
+
+    <div class="question hidden" id="question-1">
+      <h2 style="text-align: center;"> 2023 Test 1 </h2>
+      <!-- <img id="main-question-image" src="main_question_image1.png" alt="Main Question Illustration"> -->
+      <div class="subquestion">
+        <h3>(a) When taking measurements in an experiment, the results are expected to be both accurate and precise. Distinguish between accuracy and precision. [3]</h3>
+        <div id="buttons-container">
+          <button class="btn-1" onclick="toggleContent('solution1')"><span>Solution</span> </button>
+          <button class="btn-1" onclick="toggleContent('audio1_1')">Explanation</button>
+          <button class="btn-1" onclick="toggleContent('video1_1')">Video</button>
+        </div>
+        <div id="solution1" class="hidden" style="text-align: center;">
+          <img width="100%" src="ans1.png" alt="Solution for Subquestion 1">
+        </div>
+        <div id="audio1_1" class="hidden" style="text-align: center;">
+          <audio controls>
+            <source src="explanation1_1.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+        <div id="video1_1" class="hidden" style="text-align: center;">
+          <video controls>
+            <source src="explanation1_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <div class="subquestion">
+        <h3>(b) If the length and width of a rectangular plate are measured to be (17.30±0.05)cm and (13.30±0.05) cm, respectively, find the area of the plate and the approximate uncertainty in the calculated area.[4]</h3>
+        <div id="buttons-container">
+          <button class="btn-1" onclick="toggleContent('solution1_2')">Solution</button>
+          <button class="btn-1" onclick="toggleContent('audio1_2')">Explanation</button>
+          <button class="btn-1" onclick="toggleContent('video1_2')">Video</button>
+        </div>
+        <div id="solution1_2" class="hidden" style="text-align: center;">
+          <img width="100%" src="ans2.png" alt="Solution for Subquestion 1">
+        </div>
+        <div id="audio1_2" class="hidden" style="text-align: center;">
+          <audio controls>
+            <source src="explanation1_1.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+        <div id="video1_2" class="hidden" style="text-align: center;">
+          <video controls>
+            <source src="explanation1_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <div class="subquestion">
+        <h3>(c) A solid cube is 350 g and each edge has length of 5.35 cm. Determine the density of the cube in Si units. [4]</h3>
+        <div id="buttons-container">
+          <button class="btn-1" onclick="toggleContent('solution1_3')">Solution</button>
+          <button class="btn-1" onclick="toggleContent('audio1_3')">Explanation</button>
+          <button class="btn-1" onclick="toggleContent('video1_3')">Video</button>
+        </div>
+        <div id="solution1_3" class="hidden" style="text-align: center;">
+          <img src="solution1.png" alt="Solution for Subquestion 1">
+        </div>
+        <div id="audio1_3" class="hidden" style="text-align: center;">
+          <audio controls>
+            <source src="explanation1_1.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+        <div id="video1_3" class="hidden" style="text-align: center;">
+          <video controls>
+            <source src="explanation1_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <div class="subquestion">
+        <h3>(d) The speed v of an object is given by the equation v=At<sup>3</sup>-Bt, where t refers to time. What are the dimensions of A and B? [4]</h3>
+        <div id="buttons-container">
+          <button class="btn-1" onclick="toggleContent('solution1_4')">Solution</button>
+          <button class="btn-1" onclick="toggleContent('audio1_4')">Explanation</button>
+          <button class="btn-1" onclick="toggleContent('video1_4')">Video</button>
+        </div>
+        <div id="solution1_4" class="hidden" style="text-align: center;">
+          <img src="solution1.png" alt="Solution for Subquestion 1">
+        </div>
+        <div id="audio1_4" class="hidden" style="text-align: center;">
+          <audio controls>
+            <source src="explanation1_1.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+        <div id="video1_4" class="hidden" style="text-align: center;">
+          <video controls>
+            <source src="explanation1_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <div class="subquestion">
+        <h3>(e) (i) Write down the dimensions of velocity, force and density [4]</h3>
+        <div id="buttons-container">
+          <button class="btn-1" onclick="toggleContent('solution1_5')">Solution</button>
+          <button class="btn-1" onclick="toggleContent('audio1_5')">Explanation</button>
+          <button class="btn-1" onclick="toggleContent('video1_5')">Video</button>
+        </div>
+        <div id="solution1_5" class="hidden" style="text-align: center;">
+          <img src="solution1.png" alt="Solution for Subquestion 1">
+        </div>
+        <div id="audio1_5" class="hidden" style="text-align: center;">
+          <audio controls>
+            <source src="explanation1_1.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+        <div id="video1_5" class="hidden" style="text-align: center;">
+          <video controls>
+            <source src="explanation1_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <div class="subquestion">
+        <h3>(ii) A Toyota Harrier moving with velocity v experiences a force F due to air resistance given by the express;
+          <br><p style="text-align: center;"> F = <sup>1</sup>&frasl;<sub>5</sub> Cp<sup>x</sup> V<sup>y</sup> A<sup>z</sup></p>
+          <br>where C is a dimensionless constant called the drag coefficient, p is the density of the air and A is the cross section area of the vehicle. Use dimensional analysis to find the values of the powers of x, y and z. [6] </h3>
+        <div id="buttons-container">
+          <button class="btn-1" onclick="toggleContent('solution1_6')">Solution</button>
+          <button class="btn-1" onclick="toggleContent('audio1_6')">Explanation</button>
+          <button class="btn-1" onclick="toggleContent('video1_6')">Video</button>
+        </div>
+        <div id="solution1_6" class="hidden" style="text-align: center;">
+          <img src="solution1.png" alt="Solution for Subquestion 1">
+        </div>
+        <div id="audio1_6" class="hidden" style="text-align: center;">
+          <audio controls>
+            <source src="explanation1_1.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+        <div id="video1_6" class="hidden" style="text-align: center;">
+          <video controls>
+            <source src="explanation1_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <div class="question hidden" id="question-2">
+      <h2>What is the integral of sin(x)?</h2>
+      <img id="main-question-image" src="main_question_image2.png" alt="Main Question Illustration">
+      <!-- Subquestions for question 2 -->
+      <!-- Similar structure as above -->
+    </div>
+
+    <div class="question hidden" id="question-3">
+      <h2>How many vertices does a cube have?</h2>
+      <img id="main-question-image" src="main_question_image3.png" alt="Main Question Illustration">
+      <!-- Subquestions for question 3 -->
+      <!-- Similar structure as above -->
+    </div>
+  </div>
+  <div id="navigation-container" class="buttons">
+    <button onclick="previousQuestion()">Previous</button>
+    <button onclick="nextQuestion()">Next</button>
+  </div>
+
+  <script>
+    let currentQuestionIndex = 1;
+    const totalQuestions = 3;
+
+    function showQuestion(index) {
+      const questions = document.querySelectorAll('.question');
+      questions.forEach((question, i) => {
+        question.classList.toggle('hidden', i + 1 !== index);
+      });
+    }
+
+    function nextQuestion() {
+      if (currentQuestionIndex < totalQuestions) {
+        currentQuestionIndex++;
+        showQuestion(currentQuestionIndex);
+      }
+    }
+
+    function previousQuestion() {
+      if (currentQuestionIndex > 1) {
+        currentQuestionIndex--;
+        showQuestion(currentQuestionIndex);
+      }
+    }
+
+    function toggleContent(id) {
+      const element = document.getElementById(id);
+      element.classList.toggle('hidden');
+    }
+
+    
+    function toggleContent(id) {
+      const element = document.getElementById(id);
+      element.classList.toggle('hidden');
+    }
+
+    // Show the first question on page load
+    showQuestion(currentQuestionIndex);
+  </script>
+</body>
+</html>
